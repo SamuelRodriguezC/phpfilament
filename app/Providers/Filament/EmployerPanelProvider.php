@@ -26,9 +26,13 @@ class EmployerPanelProvider extends PanelProvider
             ->id('employer')
             ->path('employer')
             ->login()
+            // ->brandName('Filament Demo') LOGO
+            // ->favicon(asset('images/favicon.png')) LOGOIMAGE
+            ->font('Poppins')
             ->default()
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::Red,
+
             ])
             ->discoverResources(in: app_path('Filament/Employer/Resources'), for: 'App\\Filament\\Employer\\Resources')
             ->discoverPages(in: app_path('Filament/Employer/Pages'), for: 'App\\Filament\\Employer\\Pages')

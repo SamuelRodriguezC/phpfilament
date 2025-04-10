@@ -7,6 +7,7 @@ use App\Filament\Employer\Resources\ConferenceResource\RelationManagers;
 use App\Models\Conference;
 use Filament\Forms;
 use Filament\Forms\Form;
+
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -48,7 +49,6 @@ class ConferenceResource extends Resource
             // Forms\Components\Select::make('speaker_id')
             //     ->relationship('speaker', 'name')
             //     ->required(),
-
             ]);
     }
 
