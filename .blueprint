@@ -1,0 +1,15 @@
+created:
+    - database/factories/ConferenceFactory.php
+    - database/factories/SpeakerFactory.php
+    - database/factories/TalkFactory.php
+    - database/migrations/2025_04_08_213951_create_conferences_table.php
+    - database/migrations/2025_04_08_213952_create_speakers_table.php
+    - database/migrations/2025_04_08_213953_create_talks_table.php
+    - app/Models/Conference.php
+    - app/Models/Speaker.php
+    - app/Models/Talk.php
+models:
+    User: {  }
+    Conference: { name: string, description: string, start_date: datetime, end_date: datetime, status: string, region: string, speaker_id: unsignedInteger, relationships: { hasMany: Talk, belongsTo: Speaker } }
+    Speaker: { name: string, email: string, bio: text, twitter_handle: string, relationships: { hasMany: Conference } }
+    Talk: { title: string, abstract: text, speaker_id: unsignedInteger, conference_id: unsignedInteger, relationships: { belongsTo: 'Speaker, Conference' } }
