@@ -4,6 +4,7 @@ namespace App\Filament\Employer\Widgets;
 
 use App\Models\Conference;
 use App\Models\Speaker;
+use App\Models\Talk;
 use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -15,8 +16,8 @@ class EmployerWidgetStats extends BaseWidget
     {
         return [
             Stat::make('Conferencias', $this->getConferencesCount(Auth::user())),
-            Stat::make('Bounce rate', '21%'),
-            Stat::make('total Conferencias', '3:12'),
+            Stat::make('Total de Charlas', $this->getTalksCount(Auth::user())),
+            Stat::make('Total Conferencias', $this->allConferences()),
         ];
     }
 
@@ -25,6 +26,22 @@ class EmployerWidgetStats extends BaseWidget
         return $totalConferences;
     }
 
-    
+    protected function getTalksCount(User $user) {
+        return $user->speaker->conferences->sum(function ($conference) {
+            return $conference->talks->count();
+        });
+    }
+
+    protected function allConferences() {
+        return Conference::get()->count();
+
+    }
+
+
+
+
+
+
+
 }
 

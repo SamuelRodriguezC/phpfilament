@@ -45,7 +45,7 @@ class TalkResource extends Resource
                         ->pluck('name', 'id')  // 'name' será mostrado en el select, 'id' es el valor
                         ->toArray();
                 })
-                ->required(),  // Campo obligatorio si es necesario
+                ->required(), 
             ]);
     }
 
