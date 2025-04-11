@@ -15,7 +15,7 @@ class EmployerWidgetStats extends BaseWidget
     protected function getStats(): array
     {
         return [
-            Stat::make('Conferencias', $this->getConferencesCount(Auth::user())),
+            Stat::make('Tus Conferencias', $this->getConferencesCount(Auth::user())),
             Stat::make('Total de Charlas', $this->getTalksCount(Auth::user())),
             Stat::make('Total Conferencias', $this->allConferences()),
         ];

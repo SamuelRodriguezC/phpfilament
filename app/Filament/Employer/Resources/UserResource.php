@@ -56,6 +56,8 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('speaker.bio')
                     ->searchable()
+                    ->label('Bio Speaker')
+                    ->words(5)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

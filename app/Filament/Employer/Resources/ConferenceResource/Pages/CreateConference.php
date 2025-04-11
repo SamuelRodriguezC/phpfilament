@@ -5,10 +5,13 @@ namespace App\Filament\Employer\Resources\ConferenceResource\Pages;
 
 use App\Filament\Employer\Resources\ConferenceResource;
 use App\Filament\Employer\Resources\TalkResource\Pages\CreateTalk as PagesCreateTalk;
+use App\Mail\ConferenceCreated;
+use App\Models\User;
 use Filament\Notifications\Actions\Action;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Auth;
 use Filament\Notifications\Notification;
+use Illuminate\Support\Facades\Mail;
 
 class CreateConference extends CreateRecord
 {
@@ -18,6 +21,15 @@ class CreateConference extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['speaker_id'] = Auth::user()->speaker->id;
+        $userSession = User::find(Auth::user());
+        $dataToSend = array(
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'start_date' => $data['start_date'],
+            'end_date' => $data['end_date'],
+            // 'userName' => $userSession->name,
+        );
+        Mail::to($userSession)->send(new ConferenceCreated($dataToSend));
         return $data;
     }
 
@@ -25,7 +37,7 @@ class CreateConference extends CreateRecord
     protected function afterCreate(): void
     {
         Notification::make()
-            ->title('¡La descripción ha sido guardada exitosamente!')
+            ->title('¡La Conferencia ha sido guardada exitosamente!')
             ->body('Ahora puedes dar la conferencia o asignarle charlas')
             ->icon('heroicon-o-chat-bubble-left-right')
             ->success()

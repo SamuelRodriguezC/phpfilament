@@ -53,7 +53,6 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('speaker.bio')
-                    ->dateTime()
                     ->words(5)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
