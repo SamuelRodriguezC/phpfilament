@@ -27,7 +27,7 @@ class CreateConference extends CreateRecord
             'description' => $data['description'],
             'start_date' => $data['start_date'],
             'end_date' => $data['end_date'],
-            // 'userName' => $userSession->name,
+            'SpeakerName' => Auth::user()->speaker->name,
         );
         Mail::to($userSession)->send(new ConferenceCreated($dataToSend));
         return $data;
@@ -37,7 +37,7 @@ class CreateConference extends CreateRecord
     protected function afterCreate(): void
     {
         Notification::make()
-            ->title('¡La Conferencia ha sido guardada exitosamente!')
+            ->title("¡La Conferencia ha sido guardada exitosamente!")
             ->body('Ahora puedes dar la conferencia o asignarle charlas')
             ->icon('heroicon-o-chat-bubble-left-right')
             ->success()
