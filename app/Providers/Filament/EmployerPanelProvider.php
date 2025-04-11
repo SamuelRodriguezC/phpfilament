@@ -31,7 +31,7 @@ class EmployerPanelProvider extends PanelProvider
             ->font('Poppins')
             ->default()
             ->colors([
-                'primary' => Color::Red,
+                'primary' => Color::Blue,
 
             ])
             ->discoverResources(in: app_path('Filament/Employer/Resources'), for: 'App\\Filament\\Employer\\Resources')
@@ -57,6 +57,9 @@ class EmployerPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
             ]);
     }
 }

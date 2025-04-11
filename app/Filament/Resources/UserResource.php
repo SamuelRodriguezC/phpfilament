@@ -37,10 +37,21 @@ class UserResource extends Resource
                     ->maxLength(255),
                 // Forms\Components\DateTimePicker::make('email_verified_at'),
                 Forms\Components\TextInput::make('password')
-                    // ->hidden('edit')
+                    ->hidden('edit')
                     ->password()
                     ->required()
                     ->maxLength(255),
+                // Using Select Component
+                // Forms\Components\Select::make('roles')
+                // ->relationship('roles', 'name')
+                // ->multiple()
+                // ->preload()
+                // ->searchable(),
+
+                // Using CheckboxList Component
+                Forms\Components\CheckboxList::make('roles')
+                ->relationship('roles', 'name')
+                // ->searchable(),
             ]);
     }
 
