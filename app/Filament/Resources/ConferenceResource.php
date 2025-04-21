@@ -7,9 +7,14 @@ use App\Filament\Resources\ConferenceResource\RelationManagers;
 use App\Models\Conference;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\RelationManagers\RelationManager;
+use App\Filament\Resources\ConferenceResource\RelationManagers\TalkRelationManager;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
+use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use pxlrbt\FilamentExcel\Columns\Column;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -53,7 +58,8 @@ class ConferenceResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
-                    ->searchable(),
+                    ->searchable()
+                    ->words(5),
                 Tables\Columns\TextColumn::make('start_date')
                     ->dateTime()
                     ->sortable(),
@@ -84,16 +90,34 @@ class ConferenceResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
+                // Make button to export to Excel
+                ExportBulkAction::make()->exports([
+                    // Change Columns Name
+                    ExcelExport::make()->withColumns([
+                        Column::make('name')->heading('Conferencia'),
+                        Column::make('description')->heading('Descripción'),
+                        Column::make('start_date')->heading('Fecha de Inicio'),
+                        Column::make('end_date')->heading('Fecha Finalización'),
+                        Column::make('status')->heading('Estado'),
+                        Column::make('region')->heading('Lugar'),
+                        Column::make('speaker.name')->heading('Conferencista'),
+                    ])
+                    // ->withFilename('Conferencias_'.date('Y-m-d')) //Default Export Name
+                    ->askForFilename('Conferencias_'.date('Y-m-d')) //Ask Filename (Default)
+                    // ->askForWriterType(), //Ask Format Type
+                ]),
+
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+
             ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            //
+            TalkRelationManager::class,
         ];
     }
 
