@@ -18,15 +18,15 @@ class ListConferences extends ListRecords
         return [
             Actions\CreateAction::make(),
 
-            // Generate PDF
-            Action::make('createPDF')
-            ->label('Crear PDF')
-            ->color('warning')
-            ->requiresConfirmation()
-            ->url(
-                fn (): string =>route('pdf.example', ['user' => Auth::user()]),
-                shouldOpenInNewTab: true
-            ),
+            // // Generate PDF
+            // Action::make('createPDF')
+            // ->label('Crear PDF')
+            // ->color('warning')
+            // ->requiresConfirmation()
+            // ->url(
+            //     fn (): string =>route('pdf.example', ['user' => Auth::user()]),
+            //     shouldOpenInNewTab: true
+            // ),
         ];
     }
 }
