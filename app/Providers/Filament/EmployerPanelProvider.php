@@ -25,7 +25,7 @@ class EmployerPanelProvider extends PanelProvider
         return $panel
             ->id('employer')
             ->path('employer')
-            ->login()
+            // ->login()
             // ->brandName('Filament Demo') LOGO
             // ->favicon(asset('images/favicon.png')) LOGOIMAGE
             ->font('Poppins')
@@ -60,6 +60,9 @@ class EmployerPanelProvider extends PanelProvider
             ])
             ->plugins([
                 \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+                \Shanerbaner82\PanelRoles\PanelRoles::make()
+                    ->roleToAssign('panel_user') // rol por defecto en este panel
+                    ->restrictedRoles(['panel_user']) // los únicos roles que pueden acceder
             ]);
     }
 }
