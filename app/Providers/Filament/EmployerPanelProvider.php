@@ -26,6 +26,7 @@ class EmployerPanelProvider extends PanelProvider
             ->id('employer')
             ->path('employer')
             // ->login()
+            ->profile()
             // ->brandName('Filament Demo') LOGO
             // ->favicon(asset('images/favicon.png')) LOGOIMAGE
             ->font('Poppins')
